@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AAC Symbol Kitchen</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-gray-950 text-white min-h-screen">
+
+  <div class="max-w-4xl mx-auto px-4 py-10">
+
+    <div class="flex items-start justify-between mb-1">
+      <h1 class="text-3xl font-bold tracking-tight">AAC Symbol Kitchen</h1>
+      <button id="api-key-btn" class="text-xs text-gray-500 hover:text-gray-300 border border-gray-700 hover:border-gray-500 rounded px-3 py-1.5 transition-colors mt-1">⚙ API Key</button>
+    </div>
+    <p class="text-gray-500 mb-6 text-sm">Search symbols · click to add (max 3) · generate AI image · download</p>
+
+    <!-- API Key banner (shown when key is missing) -->
+    <div id="api-key-banner" class="hidden mb-6 bg-yellow-900/40 border border-yellow-700 rounded-lg px-4 py-3 text-sm text-yellow-300">
+      Gemini API 키가 없습니다. ⚙ API Key 버튼을 눌러 입력해주세요.
+    </div>
+
+    <!-- API Key modal -->
+    <div id="api-key-modal" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+      <div class="bg-gray-900 border border-gray-700 rounded-2xl p-6 w-full max-w-md mx-4">
+        <h2 class="text-lg font-bold mb-1">Gemini API Key</h2>
+        <p class="text-gray-400 text-xs mb-4">키는 브라우저 localStorage에만 저장되며 외부로 전송되지 않습니다.</p>
+        <input
+          id="api-key-input"
+          type="password"
+          placeholder="AIza..."
+          class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 mb-4"
+        />
+        <div class="flex justify-end gap-2">
+          <button id="api-key-cancel" class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-lg text-sm transition-colors">취소</button>
+          <button id="api-key-save" class="bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded-lg text-sm font-medium transition-colors">저장</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Search -->
+    <div class="flex gap-2 mb-6">
+      <input
+        id="search-input"
+        type="text"
+        placeholder="Search (e.g. eat, apple, go, 먹다)"
+        class="flex-1 bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors"
+      />
+      <button
+        id="search-btn"
+        class="bg-blue-600 hover:bg-blue-500 px-6 py-2 rounded-lg text-sm font-medium transition-colors"
+      >
+        Search
+      </button>
+    </div>
+
+    <!-- Search results -->
+    <div
+      id="results"
+      class="grid grid-cols-5 sm:grid-cols-8 gap-2 mb-8 min-h-[72px]"
+    ></div>
+
+    <!-- Canvas card -->
+    <div class="bg-gray-900 rounded-2xl p-6 mb-4">
+      <canvas
+        id="card-canvas"
+        width="500"
+        height="500"
+        class="block mx-auto rounded-xl"
+      ></canvas>
+      <!-- Labels shown after generation -->
+      <div id="card-labels" class="hidden mt-4 text-center">
+        <p id="label-words" class="text-white font-bold text-base tracking-wide"></p>
+        <p id="label-scene" class="text-gray-400 text-sm mt-1"></p>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="flex justify-between gap-3">
+      <button
+        id="generate-btn"
+        class="bg-purple-600 hover:bg-purple-500 disabled:opacity-40 disabled:cursor-not-allowed px-6 py-2 rounded-lg text-sm font-medium transition-colors"
+        disabled
+      >
+        ✦ Generate Image
+      </button>
+      <div class="flex gap-3">
+        <button
+          id="reset-btn"
+          class="bg-gray-700 hover:bg-gray-600 px-6 py-2 rounded-lg text-sm font-medium transition-colors"
+        >
+          Reset
+        </button>
+        <button
+          id="download-btn"
+          class="bg-emerald-600 hover:bg-emerald-500 px-6 py-2 rounded-lg text-sm font-medium transition-colors"
+        >
+          Download PNG
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
